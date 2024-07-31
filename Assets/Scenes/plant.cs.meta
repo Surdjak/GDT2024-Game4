@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 962656cb4c1e63c4bb24a3aae0ab8928
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - seedSprite: {fileID: 21300000, guid: 75e4330c7a60c424392c7864bf5a4ce8, type: 3}
+  - growingSprite: {fileID: 21300000, guid: 1b418753686e5bc41b925b5f1b4e1ac7, type: 3}
+  - grownSprite: {fileID: 21300000, guid: a970b69cb867d2f46a10be6249a53dbd, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
