@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public Plant plantPrefab;
     public Transform plantingArea;
-    public VineyardResourcesManager vineyardResourceManager;
+    public PossessionsManager possessionsManager;
 
     private void Start()
     {
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Missing Plant Area", gameObject);
         }
-        if (vineyardResourceManager == null)
+        if (possessionsManager == null)
         {
             Debug.LogError("Missing Vineyard Resources Manager!", gameObject);
         }
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Plant plant = Instantiate(plantPrefab, mousePosition, Quaternion.identity, plantingArea);
-            plant.Initialize(vineyardResourceManager);
+            plant.Initialize(possessionsManager);
         }
     }
 }

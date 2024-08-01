@@ -811,7 +811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plantPrefab: {fileID: 4356228480712075719, guid: 97167f3cd981c9041a7c3e7f29771ba5, type: 3}
   plantingArea: {fileID: 1007802464}
-  vineyardResourceManager: {fileID: 1901506322}
+  possessionsManager: {fileID: 1901506322}
 --- !u!4 &1901506321
 Transform:
   m_ObjectHideFlags: 0

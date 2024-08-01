@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4356228480712075719}
   - component: {fileID: -8105060961081611361}
   m_Layer: 0
-  m_Name: Plant
+  m_Name: WhiteGrape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

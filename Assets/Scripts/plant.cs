@@ -7,15 +7,15 @@ public class Plant : MonoBehaviour
     public Sprite grownSprite;
     public float growthTime = 10.0f;
 
-    private VineyardResourcesManager resourceManager;
+    private PossessionsManager possessionsManager;
 
     private SpriteRenderer spriteRenderer;
     private float growthProgress = 0.0f;
     private bool isGrown = false;
 
-    public void Initialize(VineyardResourcesManager resourceManager)
+    public void Initialize(PossessionsManager possessionsManager)
     {
-        this.resourceManager = resourceManager;
+        this.possessionsManager = possessionsManager;
     }
 
     void Start()
