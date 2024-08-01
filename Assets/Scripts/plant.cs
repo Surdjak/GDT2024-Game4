@@ -5,11 +5,18 @@ public class Plant : MonoBehaviour
     public Sprite seedSprite;
     public Sprite growingSprite;
     public Sprite grownSprite;
+    public float growthTime = 10.0f;
+
+    private VineyardResourcesManager resourceManager;
 
     private SpriteRenderer spriteRenderer;
-    private float growthTime = 10.0f; // Adjust growth time as needed
     private float growthProgress = 0.0f;
     private bool isGrown = false;
+
+    public void Initialize(VineyardResourcesManager resourceManager)
+    {
+        this.resourceManager = resourceManager;
+    }
 
     void Start()
     {

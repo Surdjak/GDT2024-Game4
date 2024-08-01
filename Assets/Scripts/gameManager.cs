@@ -1,13 +1,26 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public Plant plantPrefab;
     public Transform plantingArea;
-    public Text resourceText;
+    public VineyardResourcesManager vineyardResourceManager;
 
-    private int wineCount = 0;
+    private void Start()
+    {
+        if (plantPrefab == null)
+        {
+            Debug.LogError("Missing Plant Prefab!", gameObject);
+        }
+        if (plantingArea == null)
+        {
+            Debug.LogError("Missing Plant Area", gameObject);
+        }
+        if (vineyardResourceManager == null)
+        {
+            Debug.LogError("Missing Vineyard Resources Manager!", gameObject);
+        }
+    }
 
     void Update()
     {
@@ -15,27 +28,7 @@ public class GameManager : MonoBehaviour
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Plant plant = Instantiate(plantPrefab, mousePosition, Quaternion.identity, plantingArea);
+            plant.Initialize(vineyardResourceManager);
         }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Collider2D hitCollider = Physics2D.OverlapPoint(mousePosition);
-            if (hitCollider != null)
-            {
-                Plant plant = hitCollider.GetComponent<Plant>();
-                if (plant != null && plant.IsGrown())
-                {
-                    Destroy(hitCollider.gameObject);
-                    wineCount++;
-                    UpdateResourceText();
-                }
-            }
-        }
-    }
-
-    void UpdateResourceText()
-    {
-        resourceText.text = "Wine Bottles: " + wineCount;
     }
 }
