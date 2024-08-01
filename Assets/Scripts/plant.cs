@@ -16,7 +16,7 @@ public class Plant : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
         {
-            Debug.LogError("SpriteRenderer component is missing!");
+            Debug.LogError("SpriteRenderer component is missing!", gameObject);
             return;
         }
         spriteRenderer.sprite = seedSprite;
@@ -43,7 +43,7 @@ public class Plant : MonoBehaviour
     void ProduceWine()
     {
         // Implement wine production logic here
-        Debug.Log("Wine Produced!");
+        Debug.Log("Wine Produced!", gameObject);
     }
 
     public bool IsGrown()
