@@ -7,8 +7,10 @@ public class PossessionsManager : MonoBehaviour
     public TextMeshProUGUI MoneyText;
     public int InitialAmountOfMoney = 200;
     public TextMeshProUGUI MoneyErrorText;
-
     private int _money;
+
+    public TextMeshProUGUI GrapeText;
+    private int _grapes;
 
     private void Start()
     {
@@ -20,9 +22,15 @@ public class PossessionsManager : MonoBehaviour
         {
             Debug.LogError("Missing Money Error Text!", gameObject);
         }
+        if (GrapeText == null)
+        {
+            Debug.LogError("Missing Grape Text!", gameObject);
+        }
 
         InitializeMoney();
     }
+
+    #region Money
 
     private void InitializeMoney()
     {
@@ -48,6 +56,18 @@ public class PossessionsManager : MonoBehaviour
         StartCoroutine(ShowMessage(MoneyErrorText, $"Need {amount} €{(boughtItemName == null ? string.Empty : $" to buy {boughtItemName}")}"));
         return false;
     }
+
+    #endregion
+
+    #region Grapes
+
+    public void GainGrapes(uint amout)
+    {
+        _grapes += (int)amout;
+        GrapeText.text = _grapes.ToString();
+    }
+
+    #endregion
 
     private IEnumerator ShowMessage(TextMeshProUGUI text, string message)
     {

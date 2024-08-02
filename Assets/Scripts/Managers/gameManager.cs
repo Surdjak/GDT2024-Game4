@@ -62,6 +62,6 @@ public class GameManager : MonoBehaviour
             return;
 
         Vine vine = Instantiate(selectedVine.Prefab, position, Quaternion.identity, plantingArea);
-        vine.Initialize(possessionsManager);
+        vine.Initialize(selectedVine, possessionsManager);
     }
 }
