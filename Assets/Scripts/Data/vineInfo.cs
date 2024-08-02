@@ -1,6 +1,8 @@
 ﻿
 public struct VineInfo
 {
+    public string Name;
+
     /// <summary>
     /// The prefab to spawn.
     /// </summary>

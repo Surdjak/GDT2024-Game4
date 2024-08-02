@@ -1,10 +1,12 @@
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Transform plantingArea;
     public PricesManager pricesManager;
     public PossessionsManager possessionsManager;
+
+    public Transform plantingArea;
 
     private void Start()
     {
@@ -56,13 +58,9 @@ public class GameManager : MonoBehaviour
         //TODO: place what is selected by the player
         VineInfo selectedVine = pricesManager.Vines[0];
 
-        if (!possessionsManager.HasEnoughMoney(selectedVine.PlantPrice))
-        {
-            //TODO: display not enough money
+        if (!possessionsManager.TrySpendMoney(selectedVine.PlantPrice, selectedVine.Name))
             return;
-        }
 
-        possessionsManager.SpendMoney(selectedVine.PlantPrice);
         Vine vine = Instantiate(selectedVine.Prefab, position, Quaternion.identity, plantingArea);
         vine.Initialize(possessionsManager);
     }
