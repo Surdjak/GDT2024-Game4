@@ -21,9 +21,18 @@ public class PossessionsManager : MonoBehaviour
     private void InitializeMoney()
     {
         _money = InitialAmountOfMoney;
+        RefreshMoneyDisplay();
+    }
+
+    private void RefreshMoneyDisplay()
+    {
         MoneyText.text = $"{_money} €";
     }
 
-    public bool HasEnoughMoney(int amount) => _money >= amount;
-    public void SpendMoney(int amount) => _money -= amount;
+    public bool HasEnoughMoney(uint amount) => _money >= amount;
+    public void SpendMoney(uint amount)
+    {
+        _money -= (int)amount;
+        RefreshMoneyDisplay();
+    }
 }

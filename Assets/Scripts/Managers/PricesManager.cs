@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pricesManager : MonoBehaviour
+public class PricesManager : MonoBehaviour
 {
     // Ugly way to define everything while we don't have a custom editor to fill dictionaries
     public Plant WhiteGrapePrefab;
