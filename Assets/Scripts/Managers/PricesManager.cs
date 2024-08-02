@@ -23,7 +23,8 @@ public class pricesManager : MonoBehaviour
             Prefab = WhiteGrapePrefab,
             IsUnlocked = true,
             PlantPrice = WhiteGrapePrice,
-            UpgradePrices = new uint[0] // no upgrade for now
+            UpgradePrices = new uint[0], // no upgrade for now
+            ProductionAtLevel = new uint[1] { 2 }
         });
     }
 
