@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Plant : MonoBehaviour
+public class Vine : MonoBehaviour
 {
     public Sprite seedSprite;
     public Sprite growingSprite;

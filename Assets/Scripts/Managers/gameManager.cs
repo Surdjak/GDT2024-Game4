@@ -2,17 +2,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Plant plantPrefab;
     public Transform plantingArea;
     public PricesManager pricesManager;
     public PossessionsManager possessionsManager;
 
     private void Start()
     {
-        if (plantPrefab == null)
-        {
-            Debug.LogError("Missing Plant Prefab!", gameObject);
-        }
         if (plantingArea == null)
         {
             Debug.LogError("Missing Plant Area!", gameObject);
@@ -68,7 +63,7 @@ public class GameManager : MonoBehaviour
         }
 
         possessionsManager.SpendMoney(selectedVine.PlantPrice);
-        Plant plant = Instantiate(selectedVine.Prefab, position, Quaternion.identity, plantingArea);
-        plant.Initialize(possessionsManager);
+        Vine vine = Instantiate(selectedVine.Prefab, position, Quaternion.identity, plantingArea);
+        vine.Initialize(possessionsManager);
     }
 }

@@ -4,7 +4,7 @@ public struct VineInfo
     /// <summary>
     /// The prefab to spawn.
     /// </summary>
-    public Plant Prefab;
+    public Vine Prefab;
 
     /// <summary>
     /// Before being unlocked, vine cannot be planted.

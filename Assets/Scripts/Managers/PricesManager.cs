@@ -4,7 +4,7 @@ using UnityEngine;
 public class PricesManager : MonoBehaviour
 {
     // Ugly way to define everything while we don't have a custom editor to fill dictionaries
-    public Plant WhiteGrapePrefab;
+    public Vine WhiteGrapePrefab;
     public uint WhiteGrapePrice = 100;
 
     public List<VineInfo> Vines = new List<VineInfo>();
