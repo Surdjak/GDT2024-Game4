@@ -854,6 +854,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8030cc9726fe2247a05296f5a67ceeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WhiteGrapePrefab: {fileID: 4356228480712075719, guid: 97167f3cd981c9041a7c3e7f29771ba5, type: 3}
+  WhiteGrapePrice: 100
 --- !u!1 &2045761850
 GameObject:
   m_ObjectHideFlags: 0
