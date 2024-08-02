@@ -1,6 +1,7 @@
-﻿
+﻿using System;
 using UnityEngine;
 
+[Serializable]
 public struct BuildingInfo
 {
     public GameObject Prefab;

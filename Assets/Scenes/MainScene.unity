@@ -1070,6 +1070,16 @@ MonoBehaviour:
   WhiteGrapeLabel: white grapes
   WhiteGrapePrice: 100
   WhiteGrapeProduction: 5
+  Vines:
+  - Name: white grapes
+    Prefab: {fileID: 4356228480712075719, guid: 97167f3cd981c9041a7c3e7f29771ba5, type: 3}
+    IsUnlocked: 1
+    UnlockPrice: 0
+    PlantPrice: 50
+    CurrentLevel: 0
+    UpgradePrices: 32000000
+    ProductionAtLevel: 050000000a000000
+  Buildings: []
 --- !u!1 &2045761850
 GameObject:
   m_ObjectHideFlags: 0

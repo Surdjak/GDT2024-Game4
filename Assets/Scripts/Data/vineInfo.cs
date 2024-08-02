@@ -1,4 +1,9 @@
-﻿
+﻿using System;
+using System.ComponentModel;
+using UnityEngine;
+using UnityEngine.Timeline;
+
+[Serializable]
 public struct VineInfo
 {
     public string Name;
@@ -11,6 +16,7 @@ public struct VineInfo
     /// <summary>
     /// Before being unlocked, vine cannot be planted.
     /// </summary>
+    [HideInInspector]
     public bool IsUnlocked;
     public uint UnlockPrice;
 
@@ -19,6 +25,7 @@ public struct VineInfo
     /// <summary>
     /// Current upgrade level.
     /// </summary>
+    [HideInInspector]
     public uint CurrentLevel;
     /// <summary>
     /// Read as UpgradePrices[<see cref="CurrentLevel"/>], it means "the price you have to pay to upgrade to next level".

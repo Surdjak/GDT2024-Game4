@@ -3,38 +3,19 @@ using UnityEngine;
 
 public class PricesManager : MonoBehaviour
 {
-    // Ugly way to define everything while we don't have a custom editor to fill dictionaries
-    public Vine WhiteGrapePrefab;
-    public string WhiteGrapeLabel;
-    public uint WhiteGrapePrice = 100;
-    public uint WhiteGrapeProduction = 5;
-
     public List<VineInfo> Vines = new List<VineInfo>();
     public List<BuildingInfo> Buildings = new List<BuildingInfo>();
 
     void Start()
     {
-        UglyFill();
-        ValidateInfos();
+        ValidateAndInitializeInfos();
     }
 
-    private void UglyFill()
+    private void ValidateAndInitializeInfos()
     {
-        Vines.Add(new VineInfo
+        for (int i=0; i < Vines.Count; i++)
         {
-            Name = WhiteGrapeLabel,
-            Prefab = WhiteGrapePrefab,
-            IsUnlocked = true,
-            PlantPrice = WhiteGrapePrice,
-            UpgradePrices = new uint[0], // no upgrade for now
-            ProductionAtLevel = new uint[1] { WhiteGrapeProduction }
-        });
-    }
-
-    private void ValidateInfos()
-    {
-        foreach (var info in Vines)
-        {
+            VineInfo info = Vines[i];
             if (info.Prefab == null)
             {
                 Debug.LogError("Vine with no prefab!", gameObject);
@@ -51,6 +32,9 @@ public class PricesManager : MonoBehaviour
             {
                 Debug.LogError("There should be one more ProductionAtLevel than UpdatePrices!", gameObject);
             }
+
+            if (info.UnlockPrice == 0)
+                info.IsUnlocked = true;
         }
     }
 }
