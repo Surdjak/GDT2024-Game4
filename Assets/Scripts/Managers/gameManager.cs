@@ -1,4 +1,6 @@
-using TMPro;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,6 +9,9 @@ public class GameManager : MonoBehaviour
     public PossessionsManager possessionsManager;
 
     public Transform plantingArea;
+    private Dictionary<Vine, Vector2> plantedVinePositions = new Dictionary<Vine, Vector2>();
+
+    private Vine _draggedVine;
 
     private void Start()
     {
@@ -26,14 +31,47 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Input.GetMouseButtonUp(0) && _draggedVine != null)
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (ClickedOnPlantableArea(mousePosition))
+            DropVine(mousePosition);
+        }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            if (ClickedOnPlantedVine(mousePosition, out Vine clickedVine))
+            {
+                // start drag
+                _draggedVine = clickedVine;
+            }
+            else if (ClickedOnPlantableArea(mousePosition))
             {
                 PlaceInVineyard(mousePosition);
             }
         }
+        else if (_draggedVine != null)
+        {
+            DragVine(mousePosition);
+        }
+    }
+
+    private bool ClickedOnPlantedVine(Vector2 mousePosition, out Vine clickedVine)
+    {
+        clickedVine = null;
+        var distances = plantedVinePositions
+            .Where(p => p.Key.IsGrown)
+            .ToDictionary(p => Vector2.Distance(mousePosition, p.Value), p => p.Key);
+
+        if (distances.Count == 0)
+            return false;
+
+        var closest = distances.Keys.Min();
+        if (closest < 0.4f)
+        {
+            clickedVine = distances[closest];
+            return true;
+        }
+
+        return false;
     }
 
     private bool ClickedOnPlantableArea(Vector2 mousePosition)
@@ -63,5 +101,22 @@ public class GameManager : MonoBehaviour
 
         Vine vine = Instantiate(selectedVine.Prefab, position, Quaternion.identity, plantingArea);
         vine.Initialize(selectedVine, possessionsManager);
+
+        plantedVinePositions.Add(vine, position);
     }
+
+    #region Drag&Drop
+
+    private void DropVine(Vector2 mousePosition)
+    {
+        plantedVinePositions[_draggedVine] = mousePosition;
+        _draggedVine = null;
+    }
+
+    private void DragVine(Vector2 mousePosition)
+    {
+        _draggedVine.transform.position = mousePosition;
+    }
+
+    #endregion
 }

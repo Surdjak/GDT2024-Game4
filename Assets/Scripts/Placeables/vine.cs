@@ -23,6 +23,8 @@ public class Vine : MonoBehaviour
         this.infos = infos;
     }
 
+    public bool IsGrown => isGrown;
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
