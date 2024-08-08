@@ -16,11 +16,15 @@ public class Vine : MonoBehaviour
     private bool isGrown = false;
 
     private float productionProgress = 0.0f;
+    private ScaleAnimator animator;
 
-    public void Initialize(VineInfo infos, PossessionsManager possessionsManager)
+    public void Initialize(VineInfo infos, PossessionsManager possessionsManager, CurveData curveData)
     {
         this.possessionsManager = possessionsManager;
         this.infos = infos;
+
+        animator = gameObject.AddComponent<ScaleAnimator>();
+        animator.Curve = curveData.VineProducingAnimationCurve;
     }
 
     public bool IsGrown => isGrown;
@@ -58,6 +62,7 @@ public class Vine : MonoBehaviour
         {
             possessionsManager.GainGrapes(infos.ProductionAtLevel[infos.CurrentLevel]);
             productionProgress -= productionTime;
+            animator.Animate();
         }
     }
 

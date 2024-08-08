@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,6 +7,8 @@ public class GameManager : MonoBehaviour
     public PricesManager pricesManager;
     public PossessionsManager possessionsManager;
 
+    public CurveData CurveData;
+
     public Transform plantingArea;
     private Dictionary<Vine, Vector2> plantedVinePositions = new Dictionary<Vine, Vector2>();
 
@@ -15,10 +16,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (plantingArea == null)
-        {
-            Debug.LogError("Missing Plant Area!", gameObject);
-        }
         if (pricesManager == null)
         {
             Debug.LogError("Missing Prices Manager!", gameObject);
@@ -26,6 +23,14 @@ public class GameManager : MonoBehaviour
         if (possessionsManager == null)
         {
             Debug.LogError("Missing Possessions Manager!", gameObject);
+        }
+        if (CurveData == null)
+        {
+            Debug.LogError("Missing Curve Data!", gameObject);
+        }
+        if (plantingArea == null)
+        {
+            Debug.LogError("Missing Plant Area!", gameObject);
         }
     }
 
@@ -100,7 +105,7 @@ public class GameManager : MonoBehaviour
             return;
 
         Vine vine = Instantiate(selectedVine.Prefab, position, Quaternion.identity, plantingArea);
-        vine.Initialize(selectedVine, possessionsManager);
+        vine.Initialize(selectedVine, possessionsManager, CurveData);
 
         plantedVinePositions.Add(vine, position);
     }
