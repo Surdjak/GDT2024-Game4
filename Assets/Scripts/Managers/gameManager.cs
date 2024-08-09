@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
                 // start drag
                 _draggedVine = clickedVine;
             }
-            else if (ClickedOnPlantableArea(mousePosition))
+            else if (ClickedOnVineyard(mousePosition))
             {
                 PlaceInVineyard(mousePosition);
             }
@@ -79,21 +79,10 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    private bool ClickedOnPlantableArea(Vector2 mousePosition)
-    {
-        return ClickedOnVineyard(mousePosition) && !IsTooCloseToSomethingElse(mousePosition);
-    }
-
     private bool ClickedOnVineyard(Vector2 mousePosition)
     {
         //TODO: implement check the click happened on the vineyard area and not on a menu
         return true;
-    }
-
-    private bool IsTooCloseToSomethingElse(Vector2 mousePosition)
-    {
-        //TODO: implement check we're not too close of another something on the area
-        return false;
     }
 
     private void PlaceInVineyard(Vector2 position)
