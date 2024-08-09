@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187bf14258c50b34c85d9a063ea378cc, type: 3}
+  m_Name: AnimationData
+  m_EditorClassIdentifier: 
+  VineProducingAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1.2094536
+      outSlope: -1.2094536
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.15356557
+    - serializedVersion: 3
+      time: 0.14999999
+      value: 0.8504396
+      inSlope: -0.012766664
+      outSlope: -0.012766664
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.19060135
+    - serializedVersion: 3
+      time: 0.5567871
+      value: 1.0500653
+      inSlope: -0.007379813
+      outSlope: -0.007379813
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10082229
+      outWeight: 0.9395529
+    - serializedVersion: 3
+      time: 0.633391
+      value: 1.0036873
+      inSlope: -0.17741564
+      outSlope: -0.17741564
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.69517314
+    - serializedVersion: 3
+      time: 0.7
+      value: 1
+      inSlope: -0.05535685
+      outSlope: -0.05535685
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  VineProductionScaleAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1.2094536
+      outSlope: -1.2094536
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.15356557
+    - serializedVersion: 3
+      time: 0.14999999
+      value: 0.8504396
+      inSlope: -0.012766664
+      outSlope: -0.012766664
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.19060135
+    - serializedVersion: 3
+      time: 0.5567871
+      value: 1.0500653
+      inSlope: -0.007379813
+      outSlope: -0.007379813
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10082229
+      outWeight: 0.9395529
+    - serializedVersion: 3
+      time: 0.633391
+      value: 1.0036873
+      inSlope: -0.17741564
+      outSlope: -0.17741564
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.69517314
+    - serializedVersion: 3
+      time: 0.7
+      value: 1
+      inSlope: -0.05535685
+      outSlope: -0.05535685
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  VineProductionFloatingTextPrefab: {fileID: 7964330241188559259, guid: f33b155dc27d08a458c1155c32debf37, type: 3}
+  VineProductionFloatingTextDirection: {x: 1, y: 3, z: 0}
+  VineProductionFloatingTextSpeed: 0.003
+  VineProductionFloatingTextDuration: 1

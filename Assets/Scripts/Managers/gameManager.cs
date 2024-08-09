@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public PricesManager pricesManager;
     public PossessionsManager possessionsManager;
 
-    public CurveData CurveData;
+    public AnimationData AnimationData;
 
     public Transform plantingArea;
     private Dictionary<Vine, Vector2> plantedVinePositions = new Dictionary<Vine, Vector2>();
@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Missing Possessions Manager!", gameObject);
         }
-        if (CurveData == null)
+        if (AnimationData == null)
         {
-            Debug.LogError("Missing Curve Data!", gameObject);
+            Debug.LogError("Missing Animation Data!", gameObject);
         }
         if (plantingArea == null)
         {
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
             return;
 
         Vine vine = Instantiate(selectedVine.Prefab, position, Quaternion.identity, plantingArea);
-        vine.Initialize(selectedVine, possessionsManager, CurveData);
+        vine.Initialize(selectedVine, possessionsManager, AnimationData);
 
         plantedVinePositions.Add(vine, position);
     }

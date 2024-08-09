@@ -1329,7 +1329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pricesManager: {fileID: 1901506323}
   possessionsManager: {fileID: 1901506322}
-  CurveData: {fileID: 11400000, guid: 175ec61480fea6d4aa30f959d53f310c, type: 2}
+  AnimationData: {fileID: 11400000, guid: 175ec61480fea6d4aa30f959d53f310c, type: 2}
   plantingArea: {fileID: 1007802464}
 --- !u!4 &1901506321
 Transform:

@@ -451,6 +451,7 @@ GameObject:
   - component: {fileID: 2090783160}
   - component: {fileID: 2090783159}
   - component: {fileID: 2090783161}
+  - component: {fileID: 2090783162}
   m_Layer: 0
   m_Name: grown
   m_TagString: Untagged
@@ -519,7 +520,7 @@ Transform:
   m_GameObject: {fileID: 2090783158}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.365477, y: 1.7801173, z: 0}
+  m_LocalPosition: {x: -3.85, y: 2.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -537,6 +538,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51f8405f26a351349b0bb0b4a735a7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AutoTick: 1
+  AutoTickTime: 5
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -588,6 +591,24 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2090783162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090783158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07c44700d35d1c4b95a1ce1a8a86f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AutoTick: 1
+  AutoTickTime: 5
+  TextMeshPrefab: {fileID: 7964330241188559259, guid: f33b155dc27d08a458c1155c32debf37, type: 3}
+  Direction: {x: 1, y: 3, z: 0}
+  Speed: 0.003
+  Duration: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

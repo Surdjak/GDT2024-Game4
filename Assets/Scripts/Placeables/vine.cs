@@ -16,15 +16,22 @@ public class Vine : MonoBehaviour
     private bool isGrown = false;
 
     private float productionProgress = 0.0f;
-    private ScaleAnimator animator;
+    private ScaleAnimator productionSqueezeAnimator;
+    private FloatingText productionFloatingTextAnimator;
 
-    public void Initialize(VineInfo infos, PossessionsManager possessionsManager, CurveData curveData)
+    public void Initialize(VineInfo infos, PossessionsManager possessionsManager, AnimationData animationData)
     {
         this.possessionsManager = possessionsManager;
         this.infos = infos;
 
-        animator = gameObject.AddComponent<ScaleAnimator>();
-        animator.Curve = curveData.VineProducingAnimationCurve;
+        productionSqueezeAnimator = gameObject.AddComponent<ScaleAnimator>();
+        productionSqueezeAnimator.Curve = animationData.VineProductionScaleAnimationCurve;
+
+        productionFloatingTextAnimator = gameObject.AddComponent<FloatingText>();
+        productionFloatingTextAnimator.TextMeshPrefab = animationData.VineProductionFloatingTextPrefab;
+        productionFloatingTextAnimator.Direction = animationData.VineProductionFloatingTextDirection;
+        productionFloatingTextAnimator.Speed = animationData.VineProductionFloatingTextSpeed;
+        productionFloatingTextAnimator.Duration = animationData.VineProductionFloatingTextDuration;
     }
 
     public bool IsGrown => isGrown;
@@ -60,9 +67,11 @@ public class Vine : MonoBehaviour
         productionProgress += Time.deltaTime;
         if (productionProgress > productionTime)
         {
-            possessionsManager.GainGrapes(infos.ProductionAtLevel[infos.CurrentLevel]);
+            var productionValue = infos.ProductionAtLevel[infos.CurrentLevel];
+            possessionsManager.GainGrapes(productionValue);
             productionProgress -= productionTime;
-            animator.Animate();
+            productionSqueezeAnimator.Animate();
+            productionFloatingTextAnimator.Animate($"+{productionValue}");
         }
     }
 
