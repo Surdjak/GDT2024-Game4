@@ -1,18 +1,21 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public PricesManager pricesManager;
     public PossessionsManager possessionsManager;
+    public DragAndDropManager dragAndDropManager;
+
+    public float ColliderSize = 0.4f;
 
     public AnimationData AnimationData;
 
     public Transform plantingArea;
-    private Dictionary<Vine, Vector2> plantedVinePositions = new Dictionary<Vine, Vector2>();
-
-    private Vine _draggedVine;
+    private Dictionary<Vine, Vector2> _plantedVinePositions = new Dictionary<Vine, Vector2>();
+    private List<Vine> _overlappingVines = new List<Vine>();
 
     private void Start()
     {
@@ -23,6 +26,10 @@ public class GameManager : MonoBehaviour
         if (possessionsManager == null)
         {
             Debug.LogError("Missing Possessions Manager!", gameObject);
+        }
+        if (dragAndDropManager == null)
+        {
+            Debug.LogError("Missing Drag&Drop Manager!", gameObject);
         }
         if (AnimationData == null)
         {
@@ -37,32 +44,23 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (Input.GetMouseButtonUp(0) && _draggedVine != null)
-        {
-            DropVine(mousePosition);
-        }
-        else if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             if (ClickedOnPlantedVine(mousePosition, out Vine clickedVine))
             {
-                // start drag
-                _draggedVine = clickedVine;
+                DragVine(clickedVine);
             }
             else if (ClickedOnVineyard(mousePosition))
             {
                 PlaceInVineyard(mousePosition);
             }
         }
-        else if (_draggedVine != null)
-        {
-            DragVine(mousePosition);
-        }
     }
 
     private bool ClickedOnPlantedVine(Vector2 mousePosition, out Vine clickedVine)
     {
         clickedVine = null;
-        var distances = plantedVinePositions
+        var distances = _plantedVinePositions
             .Where(p => p.Key.IsGrown)
             .ToDictionary(p => Vector2.Distance(mousePosition, p.Value), p => p.Key);
 
@@ -70,7 +68,7 @@ public class GameManager : MonoBehaviour
             return false;
 
         var closest = distances.Keys.Min();
-        if (closest < 0.4f)
+        if (closest < ColliderSize)
         {
             clickedVine = distances[closest];
             return true;
@@ -96,20 +94,54 @@ public class GameManager : MonoBehaviour
         Vine vine = Instantiate(selectedVine.Prefab, position, Quaternion.identity, plantingArea);
         vine.Initialize(selectedVine, possessionsManager, AnimationData);
 
-        plantedVinePositions.Add(vine, position);
+        _plantedVinePositions.Add(vine, position);
     }
 
     #region Drag&Drop
 
-    private void DropVine(Vector2 mousePosition)
+    private void DragVine(Vine vineToDrag)
     {
-        plantedVinePositions[_draggedVine] = mousePosition;
-        _draggedVine = null;
+        dragAndDropManager.StartDrag(vineToDrag.gameObject, DropVine, DragVine);
     }
 
-    private void DragVine(Vector2 mousePosition)
+    private void DropVine(GameObject draggedObject, Vector2 mousePosition)
     {
-        _draggedVine.transform.position = mousePosition;
+        Vine vine = draggedObject.GetComponent<Vine>();
+        _plantedVinePositions[vine] = mousePosition;
+        MergeVine(vine, mousePosition);
+    }
+
+    private void MergeVine(Vine vine, Vector2 mousePosition)
+    {
+        while (_overlappingVines.Count >= 3)
+        {
+            if (_overlappingVines.Count >= 5)
+            {
+                //TODO: destroy 5 vines, creates 2 with higher level
+            }
+            else if (_overlappingVines.Count >= 3)
+            {
+                //TODO: destroy 3 vines, creates 1 with higher level
+            }
+        }
+
+        _overlappingVines.Clear();
+    }
+
+    private void DragVine(GameObject draggedObject, Vector2 mousePosition)
+    {
+        Vine draggedVine = draggedObject.GetComponent<Vine>();
+        if (!draggedVine.CanLevelUp())
+            return;
+
+        _overlappingVines = _plantedVinePositions
+            .Where(p => p.Key.IsGrown 
+                && p.Key.Level == draggedVine.Level
+                && Vector2.Distance(mousePosition, p.Value) < ColliderSize)
+            .Select(p => p.Key)
+            .ToList();
+
+        //TODO: highlight them
     }
 
     #endregion

@@ -20,17 +20,9 @@ public class PricesManager : MonoBehaviour
             {
                 Debug.LogError("Vine with no prefab!", gameObject);
             }
-            if (info.UpgradePrices == null)
-            {
-                Debug.LogError("Null UpdatePrices array!", gameObject);
-            }
             if (info.ProductionAtLevel == null)
             {
                 Debug.LogError("Null ProductionAtLevel array!", gameObject);
-            }
-            if (info.UpgradePrices != null && info.ProductionAtLevel != null && info.ProductionAtLevel.Length != info.UpgradePrices.Length + 1)
-            {
-                Debug.LogError("There should be one more ProductionAtLevel than UpdatePrices!", gameObject);
             }
 
             if (info.UnlockPrice == 0)

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Vine : MonoBehaviour
@@ -14,6 +15,7 @@ public class Vine : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private float growthProgress = 0.0f;
     private bool isGrown = false;
+    private int level = 0;
 
     private float productionProgress = 0.0f;
     private ScaleAnimator productionSqueezeAnimator;
@@ -35,6 +37,12 @@ public class Vine : MonoBehaviour
     }
 
     public bool IsGrown => isGrown;
+    public int Level => level;
+
+    public bool CanLevelUp()
+    {
+        return infos.ProductionAtLevel.Length > level + 1;
+    }
 
     void Start()
     {
@@ -67,7 +75,7 @@ public class Vine : MonoBehaviour
         productionProgress += Time.deltaTime;
         if (productionProgress > productionTime)
         {
-            var productionValue = infos.ProductionAtLevel[infos.CurrentLevel];
+            var productionValue = infos.ProductionAtLevel[Level];
             possessionsManager.GainGrapes(productionValue);
             productionProgress -= productionTime;
             productionSqueezeAnimator.Animate();
