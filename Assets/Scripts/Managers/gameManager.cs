@@ -113,16 +113,34 @@ public class GameManager : MonoBehaviour
 
     private void MergeVine(Vine vine, Vector2 mousePosition)
     {
-        while (_overlappingVines.Count >= 3)
+        if (_overlappingVines.Count < 2)
         {
-            if (_overlappingVines.Count >= 5)
-            {
-                //TODO: destroy 5 vines, creates 2 with higher level
-            }
-            else if (_overlappingVines.Count >= 3)
-            {
-                //TODO: destroy 3 vines, creates 1 with higher level
-            }
+            // not enough overlap to merge
+            return;
+        }
+
+        var vinesToDestroy = new List<Vine> { vine };
+        var overlappingFive = _overlappingVines.Count >= 4;
+
+        // merging 3 vines creates 1 higher vine
+        var firstCreated = vine.CreateHigherVine(mousePosition, overlappingFive ? ColliderSize : 0f);
+        _plantedVinePositions.Add(firstCreated, firstCreated.transform.position);
+        vinesToDestroy.AddRange(_overlappingVines.Take(2));
+
+        if (overlappingFive)
+        {
+            // merging 5 vines creates 2 higher vines
+            var secondCreated = vine.CreateHigherVine(mousePosition, ColliderSize * -1f);
+            _plantedVinePositions.Add(secondCreated, secondCreated.transform.position);
+            vinesToDestroy.AddRange(vinesToDestroy.Skip(2).Take(2));
+        }
+
+        // destroy merged vines
+        while (vinesToDestroy.Any())
+        {
+            _plantedVinePositions.Remove(vinesToDestroy[0]);
+            Destroy(vinesToDestroy[0].gameObject);
+            vinesToDestroy.RemoveAt(0);
         }
 
         _overlappingVines.Clear();

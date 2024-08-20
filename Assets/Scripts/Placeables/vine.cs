@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Vine : MonoBehaviour
@@ -10,6 +9,7 @@ public class Vine : MonoBehaviour
     public float productionTime = 2f;
 
     private PossessionsManager possessionsManager;
+    private AnimationData animationData;
     private VineInfo infos;
 
     private SpriteRenderer spriteRenderer;
@@ -24,7 +24,11 @@ public class Vine : MonoBehaviour
     public void Initialize(VineInfo infos, PossessionsManager possessionsManager, AnimationData animationData)
     {
         this.possessionsManager = possessionsManager;
+        this.animationData = animationData;
         this.infos = infos;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = seedSprite;
 
         productionSqueezeAnimator = gameObject.AddComponent<ScaleAnimator>();
         productionSqueezeAnimator.Curve = animationData.VineProductionScaleAnimationCurve;
@@ -46,14 +50,6 @@ public class Vine : MonoBehaviour
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null)
-        {
-            Debug.LogError("SpriteRenderer component is missing!", gameObject);
-            return;
-        }
-        spriteRenderer.sprite = seedSprite;
-
         // hack to have the vine produce when it's just grown
         productionProgress = productionTime + 0.1f;
     }
@@ -70,7 +66,7 @@ public class Vine : MonoBehaviour
         }
     }
 
-    void Produce()
+    private void Produce()
     {
         productionProgress += Time.deltaTime;
         if (productionProgress > productionTime)
@@ -83,10 +79,10 @@ public class Vine : MonoBehaviour
         }
     }
 
-    void Grow()
+    private void Grow(bool growNow = false)
     {
         growthProgress += Time.deltaTime;
-        if (growthProgress > growthTime)
+        if (growNow || growthProgress > growthTime)
         {
             spriteRenderer.sprite = grownSprite;
             isGrown = true;
@@ -96,5 +92,21 @@ public class Vine : MonoBehaviour
         {
             spriteRenderer.sprite = growingSprite;
         }
+    }
+
+    /// <summary>
+    /// Creates a Vine of higher level and initializes it with same infos as the original
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="offset">Offsets horizontally from given <paramref name="position"/> ; default 0 is no offset</param>
+    /// <returns></returns>
+    public Vine CreateHigherVine(Vector2 position, float offset = 0f)
+    {
+        var truePosition = new Vector2(position.x + offset, position.y);
+        Vine newVine = Instantiate(infos.Prefab, truePosition, Quaternion.identity, transform.parent);
+        newVine.Initialize(infos, possessionsManager, animationData);
+        newVine.level = level + 1;
+        newVine.Grow(true);
+        return newVine;
     }
 }
