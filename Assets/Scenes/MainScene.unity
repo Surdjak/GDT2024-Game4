@@ -1362,7 +1362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoneyText: {fileID: 1865718467}
-  InitialAmountOfMoney: 250
+  InitialAmountOfMoney: 450
   MoneyErrorText: {fileID: 496867909}
   GrapeText: {fileID: 1215953810}
 --- !u!114 &1901506323
