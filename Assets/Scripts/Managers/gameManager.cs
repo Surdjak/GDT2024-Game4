@@ -43,16 +43,19 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
         if (Input.GetMouseButtonDown(0))
         {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            
             if (ClickedOnPlantedVine(mousePosition, out Vine clickedVine))
             {
                 DragVine(clickedVine);
             }
-            else if (ClickedOnVineyard(mousePosition))
+            else if (ClickedOnVineyard(mousePosition, out Vector2 position))
             {
-                PlaceInVineyard(mousePosition);
+                Debug.Log("plant : " + position);
+                PlaceInVineyard(position);
             }
         }
     }
@@ -77,10 +80,17 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    private bool ClickedOnVineyard(Vector2 mousePosition)
+    private bool ClickedOnVineyard(Vector2 mousePosition, out Vector2 hitPosition)
     {
-        //TODO: implement check the click happened on the vineyard area and not on a menu
-        return true;
+        RaycastHit2D rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
+        hitPosition = Vector2.zero;
+        bool isOverUI = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+        if (rayHit.collider != null && rayHit.collider.gameObject.tag == "PlantingArea" && !isOverUI)
+        {
+            hitPosition = rayHit.point;
+            return true;
+        }
+        return false;
     }
 
     private void PlaceInVineyard(Vector2 position)

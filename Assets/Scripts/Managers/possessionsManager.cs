@@ -43,6 +43,10 @@ public class PossessionsManager : MonoBehaviour
     {
         MoneyText.text = $"{_money} €";
     }
+    private void RefreshGrapeDisplay()
+    {
+        GrapeText.text = _grapes.ToString();
+    }
 
     public bool TrySpendMoney(uint amount, string boughtItemName = null)
     {
@@ -65,6 +69,13 @@ public class PossessionsManager : MonoBehaviour
     {
         _grapes += (int)amout;
         GrapeText.text = _grapes.ToString();
+    }
+    public void SellAllGrapes()
+    {
+        _money += _grapes * 1;
+        _grapes = 0;
+        RefreshMoneyDisplay();
+        RefreshGrapeDisplay();
     }
 
     #endregion
